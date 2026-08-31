@@ -3,21 +3,29 @@ import AppKit
 
 struct ContentView: View {
     @EnvironmentObject private var settings: AppSettings
-    @State private var selection: AppSection? = .cacheCleaner
+    @State private var selection: AppSection? = .dashboard
 
     var body: some View {
         NavigationSplitView {
             SidebarView(selection: $selection)
         } detail: {
             switch selection {
+            case .dashboard:
+                DashboardView(selection: $selection)
+            case .smartClean:
+                SmartCleanView()
             case .cacheCleaner:
                 CacheCleanerView()
             case .archScanner:
                 ArchScannerView()
             case .duplicateFinder:
                 DuplicateFinderView()
+            case .largeFiles:
+                LargeFilesView()
             case .uninstaller:
                 UninstallerView()
+            case .loginItems:
+                LoginItemsView()
             case .updateManager:
                 UpdateManagerView()
             case .settings:

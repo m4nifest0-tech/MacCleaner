@@ -9,7 +9,7 @@ enum CacheScanner {
         var permissionIssues: [URL] = []
     }
 
-    static func scan() async -> ScanResult {
+    static func scan(excludedFolders: [URL] = []) async -> ScanResult {
         let home = FileManager.default.homeDirectoryForCurrentUser
         let fm = FileManager.default
 
@@ -45,6 +45,10 @@ enum CacheScanner {
             if installerExtensions.contains(entry.pathExtension.lowercased()) {
                 jobs.append((entry, .downloadsInstallers))
             }
+        }
+
+        if !excludedFolders.isEmpty {
+            jobs.removeAll { ExclusionMatcher.isExcluded($0.0, excludedFolders: excludedFolders) }
         }
 
         var result = ScanResult()

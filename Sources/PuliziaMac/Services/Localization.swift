@@ -16,10 +16,14 @@ enum Localization {
 
     private static let table: [String: Entry] = [
         // MARK: Sidebar / sezioni
+        "sidebar.dashboard": Entry(it: "Panoramica", en: "Overview"),
+        "sidebar.smartClean": Entry(it: "Pulizia Automatica", en: "Smart Clean"),
         "sidebar.cacheCleaner": Entry(it: "Cache e File Temporanei", en: "Cache & Temp Files"),
         "sidebar.archScanner": Entry(it: "App Intel su ARM", en: "Intel Apps on ARM"),
         "sidebar.duplicateFinder": Entry(it: "File Duplicati", en: "Duplicate Files"),
+        "sidebar.largeFiles": Entry(it: "File di Grandi Dimensioni", en: "Large Files"),
         "sidebar.uninstaller": Entry(it: "Disinstallatore", en: "Uninstaller"),
+        "sidebar.loginItems": Entry(it: "Elementi di Avvio", en: "Login Items"),
         "sidebar.updateManager": Entry(it: "Aggiornamenti", en: "Updates"),
         "sidebar.settings": Entry(it: "Impostazioni", en: "Settings"),
 
@@ -92,6 +96,10 @@ enum Localization {
         "uninstall.no_leftovers": Entry(it: "Nessun file residuo noto trovato.", en: "No known leftover files found."),
         "uninstall.button": Entry(it: "Disinstalla (sposta nel Cestino)", en: "Uninstall (move to Trash)"),
         "uninstall.confirm_button": Entry(it: "Disinstalla", en: "Uninstall"),
+        "uninstall.confirm_message": Entry(
+            it: "Alcune app (soprattutto quelle del Mac App Store) sono di proprietà di root: se serve, macOS chiederà la password di amministratore per completare la rimozione.",
+            en: "Some apps (especially Mac App Store ones) are owned by root: if needed, macOS will ask for the administrator password to complete the removal."
+        ),
 
         // MARK: Update Manager
         "updates.check_button": Entry(it: "Controlla aggiornamenti", en: "Check for updates"),
@@ -119,6 +127,42 @@ enum Localization {
         ),
         "updates.update_button": Entry(it: "Aggiorna", en: "Update"),
 
+        // MARK: Dashboard
+        "dashboard.disk_usage": Entry(it: "Spazio su disco", en: "Disk Usage"),
+        "dashboard.used": Entry(it: "Usati", en: "Used"),
+        "dashboard.free": Entry(it: "Liberi", en: "Free"),
+        "dashboard.total_freed": Entry(it: "Spazio liberato da PuliziaMac", en: "Space freed by PuliziaMac"),
+        "dashboard.quick_access": Entry(it: "Accesso rapido", en: "Quick Access"),
+
+        // MARK: Pulizia automatica
+        "smartclean.explanation": Entry(
+            it: "Analizza in automatico le categorie sicure (cache app, log, file sviluppatore, installer scaricati) e la cache DNS, selezionando già tutto tranne il Cestino. Controlla l'elenco e conferma: nessuna cancellazione permanente senza il tuo consenso.",
+            en: "Automatically scans the safe categories (app caches, logs, developer files, downloaded installers) and the DNS cache, pre-selecting everything except Trash. Review the list and confirm: nothing is permanently deleted without your consent."
+        ),
+        "smartclean.clean_button": Entry(it: "Pulisci Ora", en: "Clean Now"),
+        "smartclean.dns_row_title": Entry(it: "Cache DNS di sistema", en: "System DNS Cache"),
+        "smartclean.dns_row_subtitle": Entry(
+            it: "Risolve problemi di rete legati a indirizzi DNS obsoleti. Richiede la password di amministratore.",
+            en: "Fixes network issues caused by stale DNS records. Requires the administrator password."
+        ),
+        "smartclean.empty": Entry(it: "Niente da pulire: tutto già ottimizzato 🎉", en: "Nothing to clean: already optimized 🎉"),
+        "smartclean.dns_success": Entry(it: "Cache DNS svuotata.", en: "DNS cache flushed."),
+
+        // MARK: File di grandi dimensioni
+        "largefiles.threshold_header": Entry(it: "Dimensione minima", en: "Minimum size"),
+        "largefiles.search_button": Entry(it: "Cerca file grandi", en: "Find large files"),
+        "largefiles.no_results": Entry(it: "Nessun file trovato sopra la soglia scelta", en: "No files found above the chosen threshold"),
+
+        // MARK: Elementi di avvio
+        "loginitems.refresh_button": Entry(it: "Aggiorna elenco", en: "Refresh list"),
+        "loginitems.explanation": Entry(
+            it: "Elenca gli agenti di avvio (LaunchAgents) registrati per l'utente e per il sistema: coprono la maggior parte degli helper in background installati dalle app. I classici \"Elementi di Login\" di Impostazioni di Sistema non sono elencabili da un'app di terze parti perché usano un formato interno non documentato da Apple.",
+            en: "Lists login agents (LaunchAgents) registered for the user and for the system: they cover most of the background helpers apps install. The classic \"Login Items\" in System Settings can't be listed by a third-party app because they use an internal format Apple doesn't document."
+        ),
+        "loginitems.empty": Entry(it: "Nessun agente di avvio trovato", en: "No login agents found"),
+        "loginitems.system_badge": Entry(it: "Sistema", en: "System"),
+        "loginitems.disable_button": Entry(it: "Disattiva", en: "Disable"),
+
         // MARK: Impostazioni
         "settings.language_header": Entry(it: "Lingua", en: "Language"),
         "settings.appearance_header": Entry(it: "Aspetto", en: "Appearance"),
@@ -126,6 +170,12 @@ enum Localization {
         "settings.appearance_light": Entry(it: "Chiaro", en: "Light"),
         "settings.appearance_dark": Entry(it: "Scuro", en: "Dark"),
         "settings.accent_header": Entry(it: "Colore accento", en: "Accent Color"),
+        "settings.exclusions_header": Entry(it: "Cartelle escluse", en: "Excluded Folders"),
+        "settings.exclusions_explanation": Entry(
+            it: "Le cartelle qui sotto non vengono mai proposte dalla scansione cache, duplicati o file di grandi dimensioni.",
+            en: "The folders below are never suggested by the cache, duplicate, or large-file scans."
+        ),
+        "settings.exclusions_empty": Entry(it: "Nessuna cartella esclusa", en: "No excluded folders"),
 
         // MARK: Colori accento
         "theme.accent.blue": Entry(it: "Blu", en: "Blue"),

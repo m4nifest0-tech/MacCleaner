@@ -10,13 +10,22 @@ struct UpdateManagerView: View {
     @State private var isInstallingMas = false
     @State private var showInstallMasConfirmation = false
     @State private var masInstallError: String?
+    /// Frazione (0...1) di controlli completati (Homebrew, Mac App Store): riflette
+    /// passi reali già eseguiti, non un'animazione finta.
+    @State private var scanProgress: Double = 0
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             header
+            // Il pulsante in alto resta alla sua dimensione naturale; il contenuto
+            // sotto riempie lo spazio restante, così un messaggio corto (es. "Tutto
+            // aggiornato") si centra in quello spazio invece di restare appiccicato
+            // subito sotto il pulsante.
             content
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(settings.t(AppSection.updateManager.titleKey))
         .task {
             await refresh()
@@ -43,7 +52,12 @@ struct UpdateManagerView: View {
             .disabled(isScanning)
 
             if isScanning {
-                ProgressView().controlSize(.small)
+                ProgressView(value: scanProgress)
+                    .frame(width: 90)
+                Text("\(Int(scanProgress * 100))%")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
             }
 
             Spacer()
@@ -168,15 +182,26 @@ struct UpdateManagerView: View {
 
     private func refresh() async {
         isScanning = true
+        scanProgress = 0
         brewAvailability = UpdateManager.locateBrew()
         masAvailability = UpdateManager.locateMas()
 
-        var collected: [UpdateItem] = []
+        var steps: [() async -> [UpdateItem]] = []
         if case .available(let path) = brewAvailability {
-            collected += await UpdateManager.homebrewOutdated(brewPath: path)
+            steps.append { await UpdateManager.homebrewOutdated(brewPath: path) }
         }
         if case .available(let path) = masAvailability {
-            collected += await UpdateManager.masOutdated(masPath: path)
+            steps.append { await UpdateManager.masOutdated(masPath: path) }
+        }
+
+        var collected: [UpdateItem] = []
+        if steps.isEmpty {
+            scanProgress = 1
+        } else {
+            for (index, step) in steps.enumerated() {
+                collected += await step()
+                scanProgress = Double(index + 1) / Double(steps.count)
+            }
         }
         items = collected
         isScanning = false

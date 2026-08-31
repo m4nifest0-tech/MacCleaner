@@ -1,7 +1,9 @@
 import SwiftUI
+import AppKit
 
 struct SettingsView: View {
     @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var exclusions: ExclusionStore
 
     var body: some View {
         Form {
@@ -28,9 +30,60 @@ struct SettingsView: View {
             Section(settings.t("settings.accent_header")) {
                 accentColorGrid
             }
+
+            Section(settings.t("settings.exclusions_header")) {
+                exclusionsList
+            }
         }
         .formStyle(.grouped)
         .navigationTitle(settings.t(AppSection.settings.titleKey))
+    }
+
+    private var exclusionsList: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(settings.t("settings.exclusions_explanation"))
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            if exclusions.excludedFolders.isEmpty {
+                Text(settings.t("settings.exclusions_empty"))
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(exclusions.excludedFolders, id: \.self) { folder in
+                    HStack {
+                        Image(systemName: "folder")
+                            .foregroundStyle(.secondary)
+                        Text(folder.path)
+                            .lineLimit(1)
+                            .truncationMode(.middle)
+                        Spacer()
+                        Button {
+                            exclusions.remove(folder)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                }
+            }
+
+            Button {
+                addExcludedFolder()
+            } label: {
+                Label(settings.t("dup.add_folder"), systemImage: "plus")
+            }
+        }
+    }
+
+    private func addExcludedFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        if panel.runModal() == .OK, let url = panel.url {
+            exclusions.add(url)
+        }
     }
 
     private var accentColorGrid: some View {

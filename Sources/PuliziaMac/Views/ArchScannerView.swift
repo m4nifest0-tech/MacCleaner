@@ -19,6 +19,7 @@ private enum ArchFilter: CaseIterable, Identifiable {
 
 struct ArchScannerView: View {
     @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var stats: StatsStore
     @State private var apps: [AppBundleInfo] = []
     @State private var isScanning = false
     @State private var filter: ArchFilter = .intelOnly
@@ -52,8 +53,10 @@ struct ArchScannerView: View {
             explanation
             resultBanner
             content
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(settings.t(AppSection.archScanner.titleKey))
         .task {
             if apps.isEmpty { await runScan() }
@@ -283,6 +286,7 @@ struct ArchScannerView: View {
         Task {
             let result = await UniversalAppThinner.removeIntelSlice(from: app)
             lastThinResult = result
+            if result.success { stats.recordFreed(result.freedBytes) }
             thinningAppID = nil
             thinningTarget = nil
             await runScan()

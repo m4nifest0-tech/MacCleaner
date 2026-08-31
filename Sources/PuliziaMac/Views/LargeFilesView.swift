@@ -1,12 +1,14 @@
 import SwiftUI
 import AppKit
 
-struct DuplicateFinderView: View {
+struct LargeFilesView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var stats: StatsStore
     @EnvironmentObject private var exclusions: ExclusionStore
-    @State private var selectedFolders: [URL] = [FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Downloads")]
-    @State private var groups: [DuplicateGroup] = []
+
+    @State private var selectedFolders: [URL] = [FileManager.default.homeDirectoryForCurrentUser]
+    @State private var threshold: LargeFileThreshold = .oneGB
+    @State private var files: [LargeFile] = []
     @State private var isScanning = false
     @State private var hasScanned = false
     @State private var selection: Set<URL> = []
@@ -14,7 +16,7 @@ struct DuplicateFinderView: View {
     @State private var lastFailures: [TrashService.Failure] = []
 
     private var selectedSize: Int64 {
-        groups.flatMap(\.files).filter { selection.contains($0.id) }.reduce(0) { $0 + $1.sizeBytes }
+        files.filter { selection.contains($0.id) }.reduce(0) { $0 + $1.sizeBytes }
     }
 
     private var confirmTrashTitle: String {
@@ -38,6 +40,7 @@ struct DuplicateFinderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             folderPicker
+            thresholdPicker
             header
 
             if !lastFailures.isEmpty {
@@ -51,7 +54,7 @@ struct DuplicateFinderView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .navigationTitle(settings.t(AppSection.duplicateFinder.titleKey))
+        .navigationTitle(settings.t(AppSection.largeFiles.titleKey))
         .confirmationDialog(
             confirmTrashTitle,
             isPresented: $showCleanConfirmation,
@@ -82,12 +85,28 @@ struct DuplicateFinderView: View {
         }
     }
 
+    private var thresholdPicker: some View {
+        HStack {
+            Text(settings.t("largefiles.threshold_header"))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Picker("", selection: $threshold) {
+                ForEach(LargeFileThreshold.allCases) { option in
+                    Text(option.rawValue.formattedFileSize).tag(option)
+                }
+            }
+            .pickerStyle(.segmented)
+            .frame(maxWidth: 340)
+            .labelsHidden()
+        }
+    }
+
     private var header: some View {
         HStack {
             Button {
                 Task { await runScan() }
             } label: {
-                Label(settings.t("dup.search_button"), systemImage: "doc.on.doc")
+                Label(settings.t("largefiles.search_button"), systemImage: "doc.badge.plus")
             }
             .disabled(isScanning || selectedFolders.isEmpty)
 
@@ -121,37 +140,17 @@ struct DuplicateFinderView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if !hasScanned {
-            ContentUnavailableView(settings.t("dup.choose_folder"), systemImage: "doc.on.doc")
-        } else if groups.isEmpty {
-            ContentUnavailableView(settings.t("dup.no_duplicates"), systemImage: "checkmark.circle")
+            ContentUnavailableView(settings.t("dup.choose_folder"), systemImage: "doc.badge.plus")
+        } else if files.isEmpty {
+            ContentUnavailableView(settings.t("largefiles.no_results"), systemImage: "checkmark.circle")
         } else {
-            List {
-                ForEach(groups) { group in
-                    Section {
-                        ForEach(group.files) { file in
-                            fileRow(file)
-                        }
-                    } header: {
-                        HStack {
-                            Text(identicalCopiesText(group.files.count))
-                            Spacer()
-                            Text(reclaimableText(group.reclaimableBytes))
-                        }
-                    }
-                }
+            List(files) { file in
+                fileRow(file)
             }
         }
     }
 
-    private func identicalCopiesText(_ count: Int) -> String {
-        settings.language == .italian ? "\(count) copie identiche" : "\(count) identical copies"
-    }
-
-    private func reclaimableText(_ bytes: Int64) -> String {
-        settings.language == .italian ? "recuperabile: \(bytes.formattedFileSize)" : "reclaimable: \(bytes.formattedFileSize)"
-    }
-
-    private func fileRow(_ file: DuplicateFile) -> some View {
+    private func fileRow(_ file: LargeFile) -> some View {
         HStack {
             Button {
                 toggle(file)
@@ -178,7 +177,7 @@ struct DuplicateFinderView: View {
         .onTapGesture { toggle(file) }
     }
 
-    private func toggle(_ file: DuplicateFile) {
+    private func toggle(_ file: LargeFile) {
         if selection.contains(file.id) {
             selection.remove(file.id)
         } else {
@@ -200,13 +199,13 @@ struct DuplicateFinderView: View {
         isScanning = true
         selection.removeAll()
         lastFailures = []
-        groups = await DuplicateFinder.find(in: selectedFolders, excludedFolders: exclusions.excludedFolders)
+        files = await LargeFileFinder.find(in: selectedFolders, minimumSize: threshold.rawValue, excludedFolders: exclusions.excludedFolders)
         hasScanned = true
         isScanning = false
     }
 
     private func cleanSelected() {
-        let selectedFiles = groups.flatMap(\.files).filter { selection.contains($0.id) }
+        let selectedFiles = files.filter { selection.contains($0.id) }
         Task {
             lastFailures = TrashService.moveToTrash(selectedFiles.map(\.path))
             let failedPaths = Set(lastFailures.map(\.path))

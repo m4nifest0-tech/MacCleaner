@@ -6,7 +6,7 @@ import CryptoKit
 /// gruppi candidati calcolando l'hash SHA256 in streaming — evita di leggere per intero
 /// file che non potranno mai essere duplicati.
 enum DuplicateFinder {
-    static func find(in directories: [URL]) async -> [DuplicateGroup] {
+    static func find(in directories: [URL], excludedFolders: [URL] = []) async -> [DuplicateGroup] {
         let candidates = await Task.detached(priority: .userInitiated) { () -> [Int64: [URL]] in
             var bySize: [Int64: [URL]] = [:]
             let fm = FileManager.default
@@ -18,6 +18,10 @@ enum DuplicateFinder {
                 ) else { continue }
 
                 while let url = enumerator.nextObject() as? URL {
+                    if !excludedFolders.isEmpty, ExclusionMatcher.isExcluded(url, excludedFolders: excludedFolders) {
+                        if url.hasDirectoryPath { enumerator.skipDescendants() }
+                        continue
+                    }
                     guard let values = try? url.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]),
                           values.isRegularFile == true,
                           let size = values.fileSize, size > 0 else { continue }

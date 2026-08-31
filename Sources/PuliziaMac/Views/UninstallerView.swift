@@ -1,7 +1,9 @@
 import SwiftUI
+import AppKit
 
 struct UninstallerView: View {
     @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var stats: StatsStore
     @State private var apps: [AppBundleInfo] = []
     @State private var isLoadingApps = false
     @State private var searchText = ""
@@ -71,9 +73,19 @@ struct UninstallerView: View {
     }
 
     private var failuresText: String {
-        settings.language == .italian
+        let base = settings.language == .italian
             ? "Non è stato possibile spostare \(lastFailures.count) elementi nel Cestino."
             : "Couldn't move \(lastFailures.count) items to the Trash."
+        guard let firstError = lastFailures.first?.underlyingError.localizedDescription else { return base }
+        let label = settings.language == .italian ? "Dettaglio" : "Detail"
+        return "\(base) \(label): \(firstError)"
+    }
+
+    /// Un `FileManager.trashItem` fallito con "permission" su un file che appartiene a
+    /// un'altra app è il sintomo tipico del permesso "Gestione app" mancante — lo stesso
+    /// gate TCC già incontrato nel modulo "App Intel su ARM".
+    private var showsAppManagementHint: Bool {
+        lastFailures.contains { UniversalAppThinner.isPermissionError($0.underlyingError) }
     }
 
     private func detailContent(_ candidate: UninstallCandidate) -> some View {
@@ -94,6 +106,20 @@ struct UninstallerView: View {
                 Text(failuresText)
                     .font(.callout)
                     .foregroundStyle(.red)
+
+                if showsAppManagementHint {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(settings.t("arch.app_management_hint"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Button(settings.t("common.open_system_settings")) {
+                            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles") {
+                                NSWorkspace.shared.open(url)
+                            }
+                        }
+                        .buttonStyle(.link)
+                    }
+                }
             }
 
             Text(settings.t("uninstall.leftovers_header"))
@@ -142,6 +168,8 @@ struct UninstallerView: View {
         ) {
             Button(settings.t("uninstall.confirm_button"), role: .destructive) { uninstall(candidate) }
             Button(settings.t("common.cancel"), role: .cancel) {}
+        } message: {
+            Text(settings.t("uninstall.confirm_message"))
         }
     }
 
@@ -175,11 +203,24 @@ struct UninstallerView: View {
     }
 
     private func uninstall(_ candidate: UninstallCandidate) {
-        let leftoverPaths = candidate.leftovers.filter { selectedLeftovers.contains($0.id) }.map(\.path)
+        let selectedLeftoverItems = candidate.leftovers.filter { selectedLeftovers.contains($0.id) }
+        let leftoverPaths = selectedLeftoverItems.map(\.path)
         Task {
-            lastFailures = UninstallerService.uninstall(candidate, removingLeftovers: leftoverPaths)
-            self.candidate = nil
-            selectedApp = nil
+            let failures = await UninstallerService.uninstall(candidate, removingLeftovers: leftoverPaths)
+            lastFailures = failures
+            let failedPaths = Set(failures.map(\.path))
+            var freed = selectedLeftoverItems.filter { !failedPaths.contains($0.path) }.reduce(0) { $0 + $1.sizeBytes }
+            if !failedPaths.contains(candidate.app.bundleURL) {
+                freed += candidate.app.sizeBytes
+            }
+            stats.recordFreed(freed)
+            // Chiudiamo il pannello solo se è andato tutto a buon fine: in caso di
+            // errore (es. permesso "Gestione app" mancante) il pannello resta aperto
+            // così il messaggio d'errore sopra resta visibile invece di sparire subito.
+            if failures.isEmpty {
+                self.candidate = nil
+                selectedApp = nil
+            }
             await loadApps()
         }
     }

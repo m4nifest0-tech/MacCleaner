@@ -57,7 +57,42 @@ enum UninstallerService {
     }
 
     /// Disinstalla l'app: sposta nel Cestino il bundle .app e tutti i residui indicati.
-    static func uninstall(_ candidate: UninstallCandidate, removingLeftovers leftoverPaths: [URL]) -> [TrashService.Failure] {
-        TrashService.moveToTrash([candidate.app.bundleURL] + leftoverPaths)
+    ///
+    /// Molte app del Mac App Store sono di proprietà di root (installate dal processo
+    /// dell'App Store), quindi un semplice spostamento nel Cestino da un processo utente
+    /// normale può fallire per permessi indipendentemente dal permesso "Gestione app".
+    /// In quel caso ritentiamo con privilegi di amministratore solo i percorsi falliti.
+    static func uninstall(_ candidate: UninstallCandidate, removingLeftovers leftoverPaths: [URL]) async -> [TrashService.Failure] {
+        await Task.detached(priority: .userInitiated) {
+            let allPaths = [candidate.app.bundleURL] + leftoverPaths
+            let failures = TrashService.moveToTrash(allPaths)
+            guard !failures.isEmpty else { return [] }
+
+            let permissionFailures = failures.filter { UniversalAppThinner.isPermissionError($0.underlyingError) }
+            guard !permissionFailures.isEmpty else { return failures }
+
+            let trashDir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".Trash")
+            var scriptLines = ["mkdir -p \(ElevatedShell.shellQuoted(trashDir.path))"]
+            for failure in permissionFailures {
+                let destination = trashDir.appendingPathComponent(failure.path.lastPathComponent)
+                let quotedSource = ElevatedShell.shellQuoted(failure.path.path)
+                let quotedDestination = ElevatedShell.shellQuoted(destination.path)
+                // Rimuove un eventuale residuo di un tentativo precedente prima di
+                // spostare: senza questo, `mv` su una destinazione già esistente (es.
+                // una directory con lo stesso nome) può fallire o finire nel posto
+                // sbagliato invece di sovrascrivere.
+                scriptLines.append("rm -rf \(quotedDestination)")
+                scriptLines.append("mv -f \(quotedSource) \(quotedDestination)")
+            }
+
+            let result = ElevatedShell.run(scriptLines)
+            if result.success {
+                // Tutti i percorsi bloccati per permessi sono stati spostati: restano
+                // solo gli eventuali fallimenti non legati a un problema di permessi.
+                return failures.filter { !UniversalAppThinner.isPermissionError($0.underlyingError) }
+            }
+            // L'elevazione è stata annullata o non è riuscita: i fallimenti originali restano.
+            return failures
+        }.value
     }
 }

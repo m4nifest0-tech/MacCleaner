@@ -5,26 +5,39 @@ CleanMyMac. Costruita con Swift Package Manager, senza bisogno di Xcode.
 
 ## Funzioni
 
-1. **Cache e file temporanei** — cache per-app (`~/Library/Caches`), log
+1. **Panoramica** — spazio su disco (usato/libero), spazio totale liberato da PuliziaMac
+   nel tempo, accesso rapido a tutte le altre sezioni.
+2. **Pulizia Automatica** — esegue la stessa scansione sicura della Cache (più il flush
+   della cache DNS di sistema), ma seleziona già tutto tranne il Cestino: basta
+   controllare l'elenco e confermare una volta, invece di scegliere categoria per
+   categoria. Volutamente **non** include duplicati/file grandi: quelli richiedono di
+   scegliere a mano le cartelle e possono contenere documenti personali, non solo cache.
+4. **Cache e file temporanei** — cache per-app (`~/Library/Caches`), log
    (`~/Library/Logs`), Cestino, DerivedData/Archives di Xcode, cache npm/pip, installer
    scaricati (`.dmg`/`.pkg`/`.zip` in `~/Downloads`).
-2. **App Intel su ARM** — trova le app senza slice `arm64` (girano solo via Rosetta 2).
+5. **App Intel su ARM** — trova le app senza slice `arm64` (girano solo via Rosetta 2).
    Per le app **universali** (contengono sia Intel sia ARM) puoi anche rimuovere la
    parte Intel per risparmiare spazio: l'app viene "assottigliata" con `lipo` e
    ri-firmata ad-hoc. **Nessun backup automatico**: alcune app (soprattutto con
    protezioni anti-manomissione o scaricate dal Mac App Store) possono smettere di
    funzionare e richiedere la reinstallazione — per questo le app Mac App Store sono
    sempre escluse dall'operazione.
-3. **File duplicati** — cerca file con contenuto identico (hash SHA256) in cartelle a
+6. **File duplicati** — cerca file con contenuto identico (hash SHA256) in cartelle a
    scelta.
-4. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
+7. **File di grandi dimensioni** — trova i file più pesanti in una o più cartelle a
+   scelta, con soglia minima selezionabile (100MB–5GB).
+8. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
    application support, log, stato salvato, container).
-5. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
-   Mac App Store (via `mas-cli`, se installato). Per le altre app non esiste un modo
-   generico e affidabile per controllare gli aggiornamenti: va fatto dal menu dell'app
-   stessa.
-6. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
-   riavviare) e tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti).
+9. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
+   permette di disattivarli. Non copre i classici "Elementi di Login" di Impostazioni di
+   Sistema, che usano un formato interno non documentato da Apple.
+10. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
+    Mac App Store (via `mas-cli`, se installato). Per le altre app non esiste un modo
+    generico e affidabile per controllare gli aggiornamenti: va fatto dal menu dell'app
+    stessa.
+11. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
+    riavviare), tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti) e
+    cartelle escluse dalle scansioni (cache, duplicati, file grandi).
 
 **Principio di sicurezza**: nessuna azione cancella mai in modo permanente. Ogni pulizia
 sposta gli elementi nel Cestino di macOS (tranne "svuota Cestino", che per definizione è
