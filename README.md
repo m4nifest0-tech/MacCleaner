@@ -3,6 +3,8 @@
 App nativa macOS (SwiftUI) per liberare spazio e mantenere pulito il Mac, in stile
 CleanMyMac. Costruita con Swift Package Manager, senza bisogno di Xcode.
 
+Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
+
 ## Funzioni
 
 1. **Panoramica** — spazio su disco (usato/libero), spazio totale liberato da PuliziaMac
