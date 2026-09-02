@@ -3,6 +3,15 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.1.0] - 2026-09-02
+
+### Aggiunte
+- **Esplora Disco** — navigazione del disco cartella per cartella, vista Elenco o Grafica (treemap: rettangoli con area proporzionale alla dimensione).
+- **Allegati Mail** — sezione dedicata (prima categoria dentro Cache) per la cache degli allegati Mail.app.
+- **Barra dei menù** — spazio libero/liberato a colpo d'occhio, accesso rapido alla finestra principale o a Pulizia Automatica.
+- **Nascondi icona dal Dock** (Impostazioni) — l'app resta accessibile dalla barra dei menù.
+- **Scorciatoie da tastiera** — ⌘1–⌘9 per le sezioni, ⌘, per Impostazioni.
+
 ## [1.0.3] - 2026-08-31
 
 ### Aggiunte
@@ -41,6 +50,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.1.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.1.0
 [1.0.3]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.3
 [1.0.2]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.2
 [1.0.1]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.1
