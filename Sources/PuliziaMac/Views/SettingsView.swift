@@ -34,6 +34,13 @@ struct SettingsView: View {
             Section(settings.t("settings.exclusions_header")) {
                 exclusionsList
             }
+
+            Section(settings.t("settings.menubar_header")) {
+                Toggle(settings.t("settings.hide_dock_icon"), isOn: $settings.hideDockIcon)
+                Text(settings.t("settings.hide_dock_icon_hint"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
         .formStyle(.grouped)
         .navigationTitle(settings.t(AppSection.settings.titleKey))

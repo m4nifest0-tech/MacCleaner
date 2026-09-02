@@ -13,6 +13,11 @@ final class AppSettings: ObservableObject {
     @Published var accentTheme: AccentTheme {
         didSet { defaults.set(accentTheme.rawValue, forKey: Keys.accentTheme) }
     }
+    /// Se true, l'app non mostra l'icona nel Dock (resta accessibile solo dalla barra
+    /// dei menù): utile per chi la vuole sempre presente ma discreta.
+    @Published var hideDockIcon: Bool {
+        didSet { defaults.set(hideDockIcon, forKey: Keys.hideDockIcon) }
+    }
 
     private let defaults: UserDefaults
 
@@ -20,6 +25,7 @@ final class AppSettings: ObservableObject {
         static let language = "appLanguage"
         static let colorScheme = "appColorScheme"
         static let accentTheme = "appAccentTheme"
+        static let hideDockIcon = "appHideDockIcon"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -27,6 +33,7 @@ final class AppSettings: ObservableObject {
         language = defaults.string(forKey: Keys.language).flatMap(AppLanguage.init(rawValue:)) ?? .italian
         colorSchemePreference = defaults.string(forKey: Keys.colorScheme).flatMap(ColorSchemePreference.init(rawValue:)) ?? .system
         accentTheme = defaults.string(forKey: Keys.accentTheme).flatMap(AccentTheme.init(rawValue:)) ?? .blue
+        hideDockIcon = defaults.bool(forKey: Keys.hideDockIcon)
     }
 
     func t(_ key: String) -> String {

@@ -3,15 +3,19 @@ import AppKit
 
 struct ContentView: View {
     @EnvironmentObject private var settings: AppSettings
-    @State private var selection: AppSection? = .dashboard
+    @EnvironmentObject private var nav: NavigationState
+
+    private var selection: Binding<AppSection?> {
+        Binding(get: { nav.selection }, set: { nav.selection = $0 })
+    }
 
     var body: some View {
         NavigationSplitView {
-            SidebarView(selection: $selection)
+            SidebarView(selection: selection)
         } detail: {
-            switch selection {
+            switch nav.selection {
             case .dashboard:
-                DashboardView(selection: $selection)
+                DashboardView(selection: selection)
             case .smartClean:
                 SmartCleanView()
             case .cacheCleaner:
@@ -22,6 +26,10 @@ struct ContentView: View {
                 DuplicateFinderView()
             case .largeFiles:
                 LargeFilesView()
+            case .diskExplorer:
+                DiskExplorerView()
+            case .mailAttachments:
+                MailAttachmentsView()
             case .uninstaller:
                 UninstallerView()
             case .loginItems:
@@ -34,8 +42,18 @@ struct ContentView: View {
                 ContentUnavailableView(settings.t("content.select_section"), systemImage: "sidebar.left")
             }
         }
-        .onAppear { applyAppearance(settings.colorSchemePreference) }
+        .onAppear {
+            applyAppearance(settings.colorSchemePreference)
+            applyDockVisibility(settings.hideDockIcon)
+        }
         .onChange(of: settings.colorSchemePreference) { _, newValue in applyAppearance(newValue) }
+        .onChange(of: settings.hideDockIcon) { _, newValue in applyDockVisibility(newValue) }
+    }
+
+    /// `.accessory` nasconde l'icona dal Dock (e dal Cmd+Tab) mantenendo l'app attiva
+    /// tramite la barra dei menù; `.regular` la ripristina come app normale.
+    private func applyDockVisibility(_ hidden: Bool) {
+        NSApp.setActivationPolicy(hidden ? .accessory : .regular)
     }
 
     /// `.preferredColorScheme()` da solo non è affidabile su macOS per aggiornare

@@ -15,4 +15,14 @@ struct AppSectionTests {
             }
         }
     }
+
+    @Test func keyboardShortcutsAreUniqueAndSequential() {
+        let assigned = AppSection.allCases.compactMap(\.keyboardShortcutKey)
+        #expect(Set(assigned).count == assigned.count, "Ogni scorciatoia numerica deve comparire una sola volta")
+        #expect(assigned == Array("123456789".prefix(assigned.count)))
+    }
+
+    @Test func dashboardIsAlwaysCmd1() {
+        #expect(AppSection.dashboard.keyboardShortcutKey == "1")
+    }
 }

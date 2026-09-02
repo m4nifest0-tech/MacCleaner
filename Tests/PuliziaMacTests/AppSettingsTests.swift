@@ -13,6 +13,7 @@ struct AppSettingsTests {
         #expect(settings.language == .italian)
         #expect(settings.colorSchemePreference == .system)
         #expect(settings.accentTheme == .blue)
+        #expect(settings.hideDockIcon == false)
     }
 
     @Test func persistsChangesAcrossInstances() {
@@ -21,11 +22,13 @@ struct AppSettingsTests {
         first.language = .english
         first.colorSchemePreference = .dark
         first.accentTheme = .purple
+        first.hideDockIcon = true
 
         let second = AppSettings(defaults: defaults)
         #expect(second.language == .english)
         #expect(second.colorSchemePreference == .dark)
         #expect(second.accentTheme == .purple)
+        #expect(second.hideDockIcon == true)
     }
 
     @Test func tReflectsCurrentLanguage() {

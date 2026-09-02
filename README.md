@@ -9,7 +9,10 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
 
 1. **Panoramica** — spazio su disco (usato/libero), spazio totale liberato da PuliziaMac
    nel tempo, accesso rapido a tutte le altre sezioni.
-2. **Pulizia Automatica** — esegue la stessa scansione sicura della Cache (più il flush
+2. **Barra dei menù** — icona nella barra dei menù con spazio libero/liberato a colpo
+   d'occhio e un accesso rapido alla finestra principale (anche direttamente su Pulizia
+   Automatica) senza doverla tenere aperta.
+3. **Pulizia Automatica** — esegue la stessa scansione sicura della Cache (più il flush
    della cache DNS di sistema), ma seleziona già tutto tranne il Cestino: basta
    controllare l'elenco e confermare una volta, invece di scegliere categoria per
    categoria. Volutamente **non** include duplicati/file grandi: quelli richiedono di
@@ -28,18 +31,30 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
    scelta.
 7. **File di grandi dimensioni** — trova i file più pesanti in una o più cartelle a
    scelta, con soglia minima selezionabile (100MB–5GB).
-8. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
-   application support, log, stato salvato, container).
-9. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
-   permette di disattivarli. Non copre i classici "Elementi di Login" di Impostazioni di
-   Sistema, che usano un formato interno non documentato da Apple.
-10. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
+8. **Esplora Disco** — navigazione del disco cartella per cartella (come
+   DaisyDisk/OmniDiskSweeper) con la dimensione reale di ogni voce, per trovare spazio
+   occupato ovunque, non solo nelle categorie fisse degli altri moduli. Vista **Elenco**
+   (lista) o **Grafica** (treemap: rettangoli con area proporzionale alla dimensione,
+   algoritmo "squarified" come DaisyDisk/WinDirStat).
+9. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
+   allegati "veri" nel database dei messaggi: rimuovere questa cache non cancella email).
+10. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
+    application support, log, stato salvato, container). Se l'app è di proprietà di root
+    (comune per quelle del Mac App Store), ritenta con privilegi di amministratore.
+11. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
+    permette di disattivarli. Non copre i classici "Elementi di Login" di Impostazioni di
+    Sistema, che usano un formato interno non documentato da Apple.
+12. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
     Mac App Store (via `mas-cli`, se installato). Per le altre app non esiste un modo
     generico e affidabile per controllare gli aggiornamenti: va fatto dal menu dell'app
     stessa.
-11. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
-    riavviare), tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti) e
-    cartelle escluse dalle scansioni (cache, duplicati, file grandi).
+13. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
+    riavviare), tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti),
+    cartelle escluse dalle scansioni e possibilità di nascondere l'icona dal Dock
+    (l'app resta accessibile dalla barra dei menù).
+
+Scorciatoie da tastiera: **⌘1**–**⌘9** per passare rapidamente tra le prime nove sezioni
+della sidebar, **⌘,** per le Impostazioni (menù "Vai a").
 
 **Principio di sicurezza**: nessuna azione cancella mai in modo permanente. Ogni pulizia
 sposta gli elementi nel Cestino di macOS (tranne "svuota Cestino", che per definizione è

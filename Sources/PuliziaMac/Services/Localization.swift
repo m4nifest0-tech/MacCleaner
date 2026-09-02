@@ -18,6 +18,8 @@ enum Localization {
         // MARK: Sidebar / sezioni
         "sidebar.dashboard": Entry(it: "Panoramica", en: "Overview"),
         "sidebar.smartClean": Entry(it: "Pulizia Automatica", en: "Smart Clean"),
+        "sidebar.diskExplorer": Entry(it: "Esplora Disco", en: "Disk Explorer"),
+        "sidebar.mailAttachments": Entry(it: "Allegati Mail", en: "Mail Attachments"),
         "sidebar.cacheCleaner": Entry(it: "Cache e File Temporanei", en: "Cache & Temp Files"),
         "sidebar.archScanner": Entry(it: "App Intel su ARM", en: "Intel Apps on ARM"),
         "sidebar.duplicateFinder": Entry(it: "File Duplicati", en: "Duplicate Files"),
@@ -28,6 +30,7 @@ enum Localization {
         "sidebar.settings": Entry(it: "Impostazioni", en: "Settings"),
 
         "content.select_section": Entry(it: "Seleziona una sezione", en: "Select a section"),
+        "menu.goto": Entry(it: "Vai a", en: "Go to"),
 
         // MARK: Comuni
         "common.cancel": Entry(it: "Annulla", en: "Cancel"),
@@ -41,6 +44,7 @@ enum Localization {
         "category.trash": Entry(it: "Cestino", en: "Trash"),
         "category.developer": Entry(it: "File sviluppatore (Xcode/Homebrew/npm/pip)", en: "Developer Files (Xcode/Homebrew/npm/pip)"),
         "category.downloadsInstallers": Entry(it: "Installer scaricati", en: "Downloaded Installers"),
+        "category.mailAttachments": Entry(it: "Allegati Mail", en: "Mail Attachments"),
 
         // MARK: Cache Cleaner
         "cache.scan": Entry(it: "Scansiona", en: "Scan"),
@@ -127,6 +131,11 @@ enum Localization {
         ),
         "updates.update_button": Entry(it: "Aggiorna", en: "Update"),
 
+        // MARK: Barra dei menù
+        "menubar.open_app": Entry(it: "Apri PuliziaMac", en: "Open PuliziaMac"),
+        "menubar.open_smart_clean": Entry(it: "Pulizia Automatica…", en: "Smart Clean…"),
+        "menubar.quit": Entry(it: "Esci", en: "Quit"),
+
         // MARK: Dashboard
         "dashboard.disk_usage": Entry(it: "Spazio su disco", en: "Disk Usage"),
         "dashboard.used": Entry(it: "Usati", en: "Used"),
@@ -147,6 +156,26 @@ enum Localization {
         ),
         "smartclean.empty": Entry(it: "Niente da pulire: tutto già ottimizzato 🎉", en: "Nothing to clean: already optimized 🎉"),
         "smartclean.dns_success": Entry(it: "Cache DNS svuotata.", en: "DNS cache flushed."),
+
+        // MARK: Allegati Mail
+        "mailattachments.explanation": Entry(
+            it: "Copie in cache degli allegati aperti o scaricati da Mail. Gli allegati veri restano nei messaggi: rimuovere questa cache non cancella nessuna email.",
+            en: "Cached copies of attachments opened or downloaded from Mail. The real attachments stay in your messages: removing this cache doesn't delete any email."
+        ),
+        "mailattachments.empty": Entry(it: "Nessun allegato Mail in cache", en: "No cached Mail attachments"),
+
+        // MARK: Esplora Disco
+        "diskexplorer.up": Entry(it: "Su", en: "Up"),
+        "diskexplorer.view_list": Entry(it: "Elenco", en: "List"),
+        "diskexplorer.view_graphic": Entry(it: "Grafica", en: "Graphic"),
+        "diskexplorer.shortcut_home": Entry(it: "Home", en: "Home"),
+        "diskexplorer.shortcut_applications": Entry(it: "Applicazioni", en: "Applications"),
+        "diskexplorer.shortcut_documents": Entry(it: "Documenti", en: "Documents"),
+        "diskexplorer.shortcut_downloads": Entry(it: "Download", en: "Downloads"),
+        "diskexplorer.shortcut_desktop": Entry(it: "Scrivania", en: "Desktop"),
+        "diskexplorer.loading": Entry(it: "Analisi della cartella…", en: "Analyzing folder…"),
+        "diskexplorer.empty": Entry(it: "Cartella vuota", en: "Empty folder"),
+        "diskexplorer.excluded_tooltip": Entry(it: "Cartella esclusa: non selezionabile", en: "Excluded folder: not selectable"),
 
         // MARK: File di grandi dimensioni
         "largefiles.threshold_header": Entry(it: "Dimensione minima", en: "Minimum size"),
@@ -176,6 +205,12 @@ enum Localization {
             en: "The folders below are never suggested by the cache, duplicate, or large-file scans."
         ),
         "settings.exclusions_empty": Entry(it: "Nessuna cartella esclusa", en: "No excluded folders"),
+        "settings.menubar_header": Entry(it: "Barra dei menù", en: "Menu Bar"),
+        "settings.hide_dock_icon": Entry(it: "Nascondi icona dal Dock", en: "Hide Dock icon"),
+        "settings.hide_dock_icon_hint": Entry(
+            it: "L'app resta attiva ed accessibile dalla barra dei menù in alto. Puoi riaprire la finestra in ogni momento da lì.",
+            en: "The app stays running and accessible from the menu bar above. You can reopen the window from there at any time."
+        ),
 
         // MARK: Colori accento
         "theme.accent.blue": Entry(it: "Blu", en: "Blue"),

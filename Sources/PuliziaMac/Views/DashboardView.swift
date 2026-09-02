@@ -7,7 +7,7 @@ struct DashboardView: View {
 
     @State private var disk: DiskOverview?
 
-    private let quickAccessSections: [AppSection] = [.smartClean, .cacheCleaner, .archScanner, .duplicateFinder, .largeFiles, .uninstaller, .loginItems, .updateManager]
+    private let quickAccessSections: [AppSection] = [.smartClean, .cacheCleaner, .archScanner, .duplicateFinder, .largeFiles, .diskExplorer, .mailAttachments, .uninstaller, .loginItems, .updateManager]
 
     var body: some View {
         ScrollView {

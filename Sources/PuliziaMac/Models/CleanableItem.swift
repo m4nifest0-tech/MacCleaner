@@ -6,6 +6,7 @@ enum CleanableCategory: String, CaseIterable, Identifiable {
     case trash
     case developer
     case downloadsInstallers
+    case mailAttachments
 
     var id: String { rawValue }
 
