@@ -179,11 +179,12 @@ struct DiskExplorerView: View {
         } else if entries.isEmpty {
             ContentUnavailableView(settings.t("diskexplorer.empty"), systemImage: "folder")
         } else if viewMode == .graphic {
-            TreemapView(
+            SpaceBreakdownView(
                 entries: entries,
                 isSelected: { selection.contains($0.id) },
                 isExcluded: { exclusions.isExcluded($0.path) },
-                onTap: handleTap
+                onToggleSelection: toggle,
+                onNavigate: { navigate(to: $0.path) }
             )
         } else {
             List(entries) { entry in

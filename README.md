@@ -7,8 +7,10 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
 
 ## Funzioni
 
-1. **Panoramica** — spazio su disco (usato/libero), spazio totale liberato da PuliziaMac
-   nel tempo, accesso rapido a tutte le altre sezioni.
+1. **Panoramica** — spazio su disco (usato/libero, con indicatore ad anello), spazio
+   totale liberato da PuliziaMac nel tempo, accesso rapido a tutte le altre sezioni.
+   La sidebar ha una barra di ricerca per trovare rapidamente una funzionalità per
+   nome o sinonimo (es. "doppi" trova File Duplicati).
 2. **Barra dei menù** — icona nella barra dei menù con spazio libero/liberato a colpo
    d'occhio e un accesso rapido alla finestra principale (anche direttamente su Pulizia
    Automatica) senza doverla tenere aperta.
@@ -34,8 +36,8 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
 8. **Esplora Disco** — navigazione del disco cartella per cartella (come
    DaisyDisk/OmniDiskSweeper) con la dimensione reale di ogni voce, per trovare spazio
    occupato ovunque, non solo nelle categorie fisse degli altri moduli. Vista **Elenco**
-   (lista) o **Grafica** (treemap: rettangoli con area proporzionale alla dimensione,
-   algoritmo "squarified" come DaisyDisk/WinDirStat).
+   (lista) o **Grafica** (anello proporzionale alla dimensione con legenda interattiva
+   per selezionare o navigare).
 9. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
    allegati "veri" nel database dei messaggi: rimuovere questa cache non cancella email).
 10. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,

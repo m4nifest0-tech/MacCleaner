@@ -58,4 +58,28 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         guard let index = numbered.firstIndex(of: self) else { return nil }
         return Character("\(index + 1)")
     }
+
+    /// Sinonimi/termini extra per la ricerca nella sidebar, oltre al titolo tradotto
+    /// (es. "duplicati" deve trovare anche digitando "doppi" o "copie").
+    var searchKeywords: [String] {
+        switch self {
+        case .dashboard: return ["panoramica", "overview", "home", "spazio", "disco", "space"]
+        case .smartClean: return ["pulizia", "automatica", "smart", "clean", "dns", "one-click"]
+        case .cacheCleaner: return ["cache", "temporanei", "temp", "spazzatura", "junk", "log"]
+        case .archScanner: return ["intel", "arm", "rosetta", "universale", "cpu", "apple silicon"]
+        case .duplicateFinder: return ["duplicati", "doppi", "duplicate", "copie", "copies"]
+        case .largeFiles: return ["grandi", "pesanti", "large", "big", "file"]
+        case .diskExplorer: return ["esplora", "disco", "explorer", "treemap", "mappa", "grafica"]
+        case .mailAttachments: return ["mail", "posta", "allegati", "attachments", "email"]
+        case .uninstaller: return ["disinstalla", "rimuovi", "uninstall", "remove", "elimina"]
+        case .loginItems: return ["avvio", "login", "startup", "agenti", "launchagents"]
+        case .updateManager: return ["aggiornamenti", "update", "homebrew", "brew", "mas", "app store"]
+        case .settings: return ["impostazioni", "preferenze", "lingua", "language", "tema", "theme", "colore", "accento", "eccezioni", "dock"]
+        }
+    }
+
+    func matches(query: String) -> Bool {
+        let needle = query.lowercased()
+        return searchKeywords.contains { $0.lowercased().contains(needle) }
+    }
 }

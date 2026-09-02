@@ -30,13 +30,17 @@ struct ArchScannerView: View {
     @State private var showThinConfirmation = false
     @State private var thinningAppID: URL?
     @State private var lastThinResult: ThinResult?
+    @State private var searchText = ""
 
     private var visibleApps: [AppBundleInfo] {
+        let byFilter: [AppBundleInfo]
         switch filter {
-        case .intelOnly: return apps.filter(\.isIntelOnly)
-        case .universal: return apps.filter(\.isUniversal)
-        case .all: return apps
+        case .intelOnly: byFilter = apps.filter(\.isIntelOnly)
+        case .universal: byFilter = apps.filter(\.isUniversal)
+        case .all: byFilter = apps
         }
+        guard !searchText.isEmpty else { return byFilter }
+        return byFilter.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
     }
 
     private var intelOnlyApps: [AppBundleInfo] {
@@ -58,6 +62,7 @@ struct ArchScannerView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(settings.t(AppSection.archScanner.titleKey))
+        .searchable(text: $searchText, prompt: settings.t("uninstall.search_placeholder"))
         .task {
             if apps.isEmpty { await runScan() }
         }

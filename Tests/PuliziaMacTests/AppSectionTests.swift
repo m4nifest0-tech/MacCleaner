@@ -25,4 +25,20 @@ struct AppSectionTests {
     @Test func dashboardIsAlwaysCmd1() {
         #expect(AppSection.dashboard.keyboardShortcutKey == "1")
     }
+
+    @Test func everySectionHasNonEmptySearchKeywords() {
+        for section in AppSection.allCases {
+            #expect(!section.searchKeywords.isEmpty)
+        }
+    }
+
+    @Test func matchesFindsSectionBySynonym() {
+        #expect(AppSection.duplicateFinder.matches(query: "doppi"))
+        #expect(AppSection.mailAttachments.matches(query: "posta"))
+        #expect(!AppSection.mailAttachments.matches(query: "duplicati"))
+    }
+
+    @Test func matchesIsCaseInsensitive() {
+        #expect(AppSection.updateManager.matches(query: "HOMEBREW"))
+    }
 }

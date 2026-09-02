@@ -21,8 +21,13 @@ mkdir -p "$APP_BUNDLE/Contents/Resources"
 
 cp "$BUILD_DIR/$APP_NAME" "$APP_BUNDLE/Contents/MacOS/$APP_NAME"
 
-if [ -d "$ROOT_DIR/Sources/PuliziaMac/Resources/AppIcon.icns" ] || [ -f "$ROOT_DIR/Sources/PuliziaMac/Resources/AppIcon.icns" ]; then
+if [ -f "$ROOT_DIR/Sources/PuliziaMac/Resources/AppIcon.icns" ]; then
   cp "$ROOT_DIR/Sources/PuliziaMac/Resources/AppIcon.icns" "$APP_BUNDLE/Contents/Resources/AppIcon.icns"
+fi
+
+# Logo per l'intestazione del PDF esportato (opzionale: l'export funziona anche senza).
+if [ -f "$ROOT_DIR/Sources/PuliziaMac/Resources/Logo.jpeg" ]; then
+  cp "$ROOT_DIR/Sources/PuliziaMac/Resources/Logo.jpeg" "$APP_BUNDLE/Contents/Resources/Logo.jpeg"
 fi
 
 cat > "$APP_BUNDLE/Contents/Info.plist" <<PLIST
