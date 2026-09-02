@@ -3,6 +3,11 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.3.0] - 2026-09-02
+
+### Aggiunte
+- **Anteprima Quick Look** — pulsante di anteprima (occhio) accanto ai file in Allegati Mail, File di Grandi Dimensioni, File Duplicati ed Esplora Disco: apre il pannello Quick Look nativo di macOS per vedere il contenuto del file prima di deciderne l'eliminazione.
+
 ## [1.2.0] - 2026-09-02
 
 ### Aggiunte
@@ -60,6 +65,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.3.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.3.0
 [1.2.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.2.0
 [1.1.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.1.0
 [1.0.3]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.3
