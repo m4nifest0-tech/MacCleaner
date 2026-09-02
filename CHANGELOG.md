@@ -3,6 +3,15 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.4.0] - 2026-09-02
+
+### Aggiunte
+- **Informazioni di sistema** (Panoramica) — nuova sezione con processore (modello e core Performance/Efficienza), memoria, capacità di archiviazione, batteria e rete.
+
+### Corrette
+- "Apri PuliziaMac" dalla barra dei menù apriva una seconda finestra invece di riportare in primo piano quella già aperta, quando l'icona Dock era nascosta.
+- Il pannello della barra dei menù non mostrava alcuna evidenziazione al passaggio del mouse sulle voci.
+
 ## [1.3.0] - 2026-09-02
 
 ### Aggiunte
@@ -65,6 +74,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.4.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.4.0
 [1.3.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.3.0
 [1.2.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.2.0
 [1.1.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.1.0

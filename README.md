@@ -6,7 +6,7 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
 
 ## Download
 
-Scarica `PuliziaMac.app.zip` dall'ultima [Release](https://github.com/m4nifest0-tech/PuliziaMac/releases/latest),
+Scarica `PuliziaMac.app.zip` dall'ultima [Release](https://github.com/m4nifest0-tech/MacCleaner/releases/latest),
 decomprimilo e sposta `PuliziaMac.app` in Applicazioni.
 
 L'app non è firmata con un account sviluppatore Apple: al primo avvio macOS potrebbe
