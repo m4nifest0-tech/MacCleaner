@@ -3,6 +3,16 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.2.0] - 2026-09-02
+
+### Aggiunte
+- **Ricerca nella sidebar** — trova rapidamente una sezione digitando il nome o un sinonimo (es. "duplicati", "copie").
+- **Esporta report PDF** (Panoramica) — anteprima del PDF prima del salvataggio, con logo, spazio disco, totale liberato e info di sistema (modello Mac, versione macOS); notifica in-app al termine dell'esportazione.
+- **Ricerca in App Intel su ARM** — filtra l'elenco delle app per nome.
+
+### Modificate
+- **Esplora Disco** — la vista Grafica ora mostra un anello proporzionale con estremità arrotondate e legenda interattiva (selezione/navigazione), al posto del treemap a rettangoli.
+
 ## [1.1.0] - 2026-09-02
 
 ### Aggiunte
@@ -50,6 +60,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.2.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.2.0
 [1.1.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.1.0
 [1.0.3]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.3
 [1.0.2]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.0.2
