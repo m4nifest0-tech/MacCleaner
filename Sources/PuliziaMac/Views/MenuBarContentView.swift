@@ -35,31 +35,19 @@ struct MenuBarContentView: View {
 
             Divider()
 
-            Button {
+            MenuRow(title: settings.t("menubar.open_smart_clean"), systemImage: "wand.and.sparkles") {
                 open(.smartClean)
-            } label: {
-                Label(settings.t("menubar.open_smart_clean"), systemImage: "wand.and.sparkles")
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .buttonStyle(.plain)
 
-            Button {
+            MenuRow(title: settings.t("menubar.open_app"), systemImage: "macwindow") {
                 open(nav.selection ?? .dashboard)
-            } label: {
-                Label(settings.t("menubar.open_app"), systemImage: "macwindow")
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .buttonStyle(.plain)
 
             Divider()
 
-            Button {
+            MenuRow(title: settings.t("menubar.quit"), systemImage: "power") {
                 NSApp.terminate(nil)
-            } label: {
-                Label(settings.t("menubar.quit"), systemImage: "power")
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .buttonStyle(.plain)
         }
         .padding(14)
         .frame(width: 260)
@@ -70,5 +58,33 @@ struct MenuBarContentView: View {
         nav.selection = section
         openWindow(id: "main")
         NSApp.activate(ignoringOtherApps: true)
+    }
+}
+
+/// Riga stile menù con evidenziazione al passaggio del mouse: nel pannello del
+/// MenuBarExtra (`.menuBarExtraStyle(.window)`) non è un vero NSMenu, quindi
+/// l'hover va gestito a mano — altrimenti passare il mouse sulle voci non dà alcun
+/// riscontro visivo.
+private struct MenuRow: View {
+    let title: String
+    let systemImage: String
+    let action: () -> Void
+
+    @State private var isHovering = false
+
+    var body: some View {
+        Button(action: action) {
+            Label(title, systemImage: systemImage)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
+                .background(
+                    isHovering ? Color.primary.opacity(0.08) : Color.clear,
+                    in: RoundedRectangle(cornerRadius: 6)
+                )
+        }
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+        .onHover { isHovering = $0 }
     }
 }

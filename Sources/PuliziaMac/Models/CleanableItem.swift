@@ -36,4 +36,10 @@ extension Int64 {
     var formattedFileSize: String {
         ByteCountFormatter.string(fromByteCount: self, countStyle: .file)
     }
+
+    /// Calcolo binario (1024) come "Informazioni su questo Mac", a differenza di
+    /// `formattedFileSize` (decimale, in stile Finder) usato per file e spazio su disco.
+    var formattedMemorySize: String {
+        ByteCountFormatter.string(fromByteCount: self, countStyle: .memory)
+    }
 }

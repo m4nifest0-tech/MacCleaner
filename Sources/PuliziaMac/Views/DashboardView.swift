@@ -6,6 +6,7 @@ struct DashboardView: View {
     @Binding var selection: AppSection?
 
     @State private var disk: DiskOverview?
+    @State private var system: SystemInfo?
     @State private var reportPreviewURL: URL?
     @State private var showReportPreview = false
     @State private var exportBanner: String?
@@ -20,12 +21,16 @@ struct DashboardView: View {
                 }
                 diskUsageCard
                 freedSpaceCard
+                systemInfoCard
                 quickAccessGrid
             }
             .padding()
         }
         .navigationTitle(settings.t(AppSection.dashboard.titleKey))
-        .onAppear { disk = DiskOverview.current() }
+        .onAppear {
+            disk = DiskOverview.current()
+            system = SystemInfoProvider.current()
+        }
         .sheet(isPresented: $showReportPreview) {
             if let reportPreviewURL {
                 ReportPreviewSheet(tempURL: reportPreviewURL) { _ in
@@ -132,6 +137,75 @@ struct DashboardView: View {
         }
         .padding()
         .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    @ViewBuilder
+    private var systemInfoCard: some View {
+        if let system {
+            VStack(alignment: .leading, spacing: 14) {
+                Text(settings.t("dashboard.system_info"))
+                    .font(.headline)
+
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 14) {
+                    systemInfoRow(icon: "cpu", title: settings.t("dashboard.processor"), value: processorSummary(system))
+                    systemInfoRow(icon: "memorychip", title: settings.t("dashboard.memory"), value: system.memoryBytes.formattedMemorySize)
+
+                    if let disk {
+                        systemInfoRow(icon: "internaldrive", title: settings.t("dashboard.storage"), value: disk.totalBytes.formattedFileSize)
+                    }
+                    if let batteryPercentage = system.batteryPercentage {
+                        systemInfoRow(icon: batteryIcon(percentage: batteryPercentage, isCharging: system.isCharging), title: settings.t("dashboard.battery"), value: batterySummary(percentage: batteryPercentage, isCharging: system.isCharging))
+                    }
+
+                    systemInfoRow(icon: "wifi", title: settings.t("dashboard.network"), value: system.networkDescription ?? settings.t("dashboard.network_unavailable"))
+                    systemInfoRow(icon: "desktopcomputer", title: system.computerName, value: "\(system.modelIdentifier) · macOS \(system.macOSVersion)")
+                }
+            }
+            .padding()
+            .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 12))
+        }
+    }
+
+    private func systemInfoRow(icon: String, title: String, value: String) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundStyle(settings.accentTheme.color)
+                .frame(width: 22)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text(value)
+                    .font(.callout)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+            }
+        }
+    }
+
+    private func processorSummary(_ system: SystemInfo) -> String {
+        guard system.performanceCores > 0, system.efficiencyCores > 0 else {
+            return "\(system.processorName) · \(system.totalCores) core"
+        }
+        let performanceLabel = settings.t("dashboard.cores_performance")
+        let efficiencyLabel = settings.t("dashboard.cores_efficiency")
+        return "\(system.processorName) · \(system.performanceCores) \(performanceLabel) + \(system.efficiencyCores) \(efficiencyLabel)"
+    }
+
+    private func batterySummary(percentage: Int, isCharging: Bool) -> String {
+        isCharging ? "\(percentage)% · \(settings.t("dashboard.battery_charging"))" : "\(percentage)%"
+    }
+
+    private func batteryIcon(percentage: Int, isCharging: Bool) -> String {
+        if isCharging { return "battery.100.bolt" }
+        switch percentage {
+        case ..<25: return "battery.25"
+        case ..<50: return "battery.50"
+        case ..<75: return "battery.75"
+        default: return "battery.100"
+        }
     }
 
     private var quickAccessGrid: some View {

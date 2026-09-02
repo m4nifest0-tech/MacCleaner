@@ -8,7 +8,10 @@ struct PuliziaMacApp: App {
     @StateObject private var nav = NavigationState()
 
     var body: some Scene {
-        WindowGroup(id: "main") {
+        // `Window` (non `WindowGroup`) gestisce una singola istanza: quando l'icona
+        // Dock è nascosta e si riapre dalla barra dei menù, `openWindow(id:)` riporta
+        // in primo piano la finestra esistente invece di aprirne una seconda.
+        Window("PuliziaMac", id: "main") {
             // L'aspetto (chiaro/scuro/sistema) è gestito da ContentView tramite
             // NSApp.appearance, non da .preferredColorScheme(): su macOS le due
             // meccaniche possono entrare in conflitto e "System" può restare bloccato
