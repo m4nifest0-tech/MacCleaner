@@ -37,6 +37,7 @@ enum Localization {
         // MARK: Comuni
         "common.cancel": Entry(it: "Annulla", en: "Cancel"),
         "common.reveal_finder": Entry(it: "Rivela nel Finder", en: "Reveal in Finder"),
+        "common.preview": Entry(it: "Anteprima", en: "Preview"),
         "common.move_to_trash": Entry(it: "Sposta nel Cestino", en: "Move to Trash"),
         "common.open_system_settings": Entry(it: "Apri Impostazioni di Sistema", en: "Open System Settings"),
 

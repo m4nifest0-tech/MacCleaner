@@ -232,6 +232,8 @@ struct DiskExplorerView: View {
                 Image(systemName: "chevron.right")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            } else {
+                QuickLookButton(url: entry.path)
             }
 
             Button {

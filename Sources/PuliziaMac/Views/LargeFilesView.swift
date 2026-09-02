@@ -166,6 +166,8 @@ struct LargeFilesView: View {
             Spacer()
             SizeBadge(bytes: file.sizeBytes)
 
+            QuickLookButton(url: file.path)
+
             Button {
                 NSWorkspace.shared.activateFileViewerSelecting([file.path])
             } label: {

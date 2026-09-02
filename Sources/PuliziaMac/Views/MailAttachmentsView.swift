@@ -140,6 +140,8 @@ struct MailAttachmentsView: View {
 
             Spacer()
             SizeBadge(bytes: item.sizeBytes)
+
+            QuickLookButton(url: item.path)
         }
         .contentShape(Rectangle())
         .onTapGesture { toggle(item) }
