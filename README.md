@@ -1,14 +1,23 @@
 # PuliziaMac
 
-App nativa macOS (SwiftUI) per liberare spazio e mantenere pulito il Mac, in stile
-CleanMyMac. Costruita con Swift Package Manager, senza bisogno di Xcode.
+App nativa macOS per liberare spazio e mantenere pulito il Mac, in stile CleanMyMac.
 
 Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
 
-## Funzioni
+## Download
+
+Scarica `PuliziaMac.app.zip` dall'ultima [Release](https://github.com/m4nifest0-tech/PuliziaMac/releases/latest),
+decomprimilo e sposta `PuliziaMac.app` in Applicazioni.
+
+L'app non è firmata con un account sviluppatore Apple: al primo avvio macOS potrebbe
+avvisare che non può verificarne l'origine. Basta fare clic destro sull'app → **Apri**,
+poi confermare nella finestra che compare.
+
+## Funzionalità
 
 1. **Panoramica** — spazio su disco (usato/libero, con indicatore ad anello), spazio
-   totale liberato da PuliziaMac nel tempo, accesso rapido a tutte le altre sezioni.
+   totale liberato da PuliziaMac nel tempo, accesso rapido a tutte le altre sezioni ed
+   esportazione di un report PDF (con anteprima prima del salvataggio).
    La sidebar ha una barra di ricerca per trovare rapidamente una funzionalità per
    nome o sinonimo (es. "doppi" trova File Duplicati).
 2. **Barra dei menù** — icona nella barra dei menù con spazio libero/liberato a colpo
@@ -19,16 +28,14 @@ Vedi il [CHANGELOG](CHANGELOG.md) per la cronologia delle versioni.
    controllare l'elenco e confermare una volta, invece di scegliere categoria per
    categoria. Volutamente **non** include duplicati/file grandi: quelli richiedono di
    scegliere a mano le cartelle e possono contenere documenti personali, non solo cache.
-4. **Cache e file temporanei** — cache per-app (`~/Library/Caches`), log
-   (`~/Library/Logs`), Cestino, DerivedData/Archives di Xcode, cache npm/pip, installer
-   scaricati (`.dmg`/`.pkg`/`.zip` in `~/Downloads`).
-5. **App Intel su ARM** — trova le app senza slice `arm64` (girano solo via Rosetta 2).
-   Per le app **universali** (contengono sia Intel sia ARM) puoi anche rimuovere la
-   parte Intel per risparmiare spazio: l'app viene "assottigliata" con `lipo` e
-   ri-firmata ad-hoc. **Nessun backup automatico**: alcune app (soprattutto con
-   protezioni anti-manomissione o scaricate dal Mac App Store) possono smettere di
-   funzionare e richiedere la reinstallazione — per questo le app Mac App Store sono
-   sempre escluse dall'operazione.
+4. **Cache e file temporanei** — cache per-app, log, Cestino, DerivedData/Archives di
+   Xcode, cache npm/pip, installer scaricati (`.dmg`/`.pkg`/`.zip` in `~/Downloads`).
+5. **App Intel su ARM** — trova le app senza slice `arm64` (girano solo via Rosetta 2),
+   con barra di ricerca per nome. Per le app **universali** (contengono sia Intel sia
+   ARM) puoi anche rimuovere la parte Intel per risparmiare spazio. **Nessun backup
+   automatico**: alcune app (soprattutto con protezioni anti-manomissione o scaricate
+   dal Mac App Store) possono smettere di funzionare e richiedere la reinstallazione —
+   per questo le app Mac App Store sono sempre escluse dall'operazione.
 6. **File duplicati** — cerca file con contenuto identico (hash SHA256) in cartelle a
    scelta.
 7. **File di grandi dimensioni** — trova i file più pesanti in una o più cartelle a
@@ -62,24 +69,6 @@ della sidebar, **⌘,** per le Impostazioni (menù "Vai a").
 sposta gli elementi nel Cestino di macOS (tranne "svuota Cestino", che per definizione è
 l'azione finale), così ogni operazione resta recuperabile.
 
-## Compilare ed eseguire
-
-```bash
-./Scripts/build_app.sh
-open dist/PuliziaMac.app
-```
-
-Lo script compila in release e impacchetta un vero bundle `PuliziaMac.app` (icona,
-finestra, Dock) senza bisogno di Xcode — bastano le Command Line Tools.
-
-Per lavorare da riga di comando senza pacchettizzare:
-
-```bash
-swift build          # compila
-swift test            # esegue i test
-swift run PuliziaMac   # avvia (senza icona Dock/bundle completo)
-```
-
 ## Permessi richiesti
 
 macOS blocca l'accesso a cartelle protette (Desktop, Documents, Downloads, Mail, ecc.)
@@ -88,20 +77,3 @@ finché non concedi **Accesso completo al disco** a PuliziaMac:
 Impostazioni di Sistema → Privacy e Sicurezza → Accesso completo al disco → abilita
 PuliziaMac (l'app mostra anche un banner con lo stesso collegamento quando rileva
 cartelle non leggibili).
-
-## Limiti noti
-
-- **Firma ad-hoc**: senza un account sviluppatore Apple, l'app è firmata ad-hoc. Ad ogni
-  ricompilazione la firma cambia, quindi macOS potrebbe richiedere di riconcedere
-  l'Accesso completo al disco dopo ogni build da zero. Con un Apple ID sviluppatore
-  (Team ID) si può firmare in modo stabile.
-- **Niente App Sandbox**: per accedere liberamente alle cache di sistema/altre app,
-  l'app gira senza sandbox — quindi non è distribuibile tramite Mac App Store, solo per
-  uso personale/locale.
-- **Test**: questa macchina ha solo le Command Line Tools (niente Xcode.app), che non
-  includono `XCTest.framework`. I test usano quindi `swift-testing` come dipendenza SPM
-  (vedi commento in `Package.swift`) invece del modulo `Testing` integrato nel toolchain,
-  che richiede Xcode.
-- **Aggiornamenti**: coperti solo Homebrew e Mac App Store; non esiste un modo affidabile
-  per controllare aggiornamenti di app scaricate da siti esterni senza integrare il
-  meccanismo proprietario di ciascuna (es. Sparkle).

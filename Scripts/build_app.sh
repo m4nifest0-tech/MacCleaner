@@ -64,5 +64,11 @@ PLIST
 echo "==> Firma ad-hoc"
 codesign --force --deep --sign - "$APP_BUNDLE"
 
+echo "==> Comprimo per la release"
+ZIP_PATH="$ROOT_DIR/dist/$APP_NAME.app.zip"
+rm -f "$ZIP_PATH"
+(cd "$ROOT_DIR/dist" && ditto -c -k --sequesterRsrc --keepParent "$APP_NAME.app" "$APP_NAME.app.zip")
+
 echo "==> Fatto: $APP_BUNDLE"
 echo "Avvia con: open \"$APP_BUNDLE\""
+echo "Asset per la release: $ZIP_PATH"
