@@ -3,6 +3,12 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.5.0] - 2026-09-09
+
+### Aggiunte
+- **Dati di Sistema** — nuova sezione: snapshot locali APFS (Time Machine) con eliminazione immediata, cache anteprime QuickLook e CoreSimulator, ricostruzione dell'indice di Spotlight.
+- **Salute SSD** — nuova sezione: stato dell'unità interna con semaforo verde/giallo/rosso basato su SMART, modello, TRIM e spazio disponibile; temperatura, TBW e ore di accensione se `smartctl` (smartmontools) è installato.
+
 ## [1.4.0] - 2026-09-02
 
 ### Aggiunte
@@ -74,6 +80,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.5.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.5.0
 [1.4.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.4.0
 [1.3.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.3.0
 [1.2.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.2.0
