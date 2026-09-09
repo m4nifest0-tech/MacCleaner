@@ -28,6 +28,10 @@ struct ContentView: View {
                 LargeFilesView()
             case .diskExplorer:
                 DiskExplorerView()
+            case .systemData:
+                SystemDataView()
+            case .diskHealth:
+                DiskHealthView()
             case .mailAttachments:
                 MailAttachmentsView()
             case .uninstaller:

@@ -11,7 +11,7 @@ struct DashboardView: View {
     @State private var showReportPreview = false
     @State private var exportBanner: String?
 
-    private let quickAccessSections: [AppSection] = [.smartClean, .cacheCleaner, .archScanner, .duplicateFinder, .largeFiles, .diskExplorer, .mailAttachments, .uninstaller, .loginItems, .updateManager]
+    private let quickAccessSections: [AppSection] = [.smartClean, .cacheCleaner, .archScanner, .duplicateFinder, .largeFiles, .diskExplorer, .systemData, .diskHealth, .mailAttachments, .uninstaller, .loginItems, .updateManager]
 
     var body: some View {
         ScrollView {

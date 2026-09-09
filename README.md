@@ -45,19 +45,28 @@ poi confermare nella finestra che compare.
    occupato ovunque, non solo nelle categorie fisse degli altri moduli. Vista **Elenco**
    (lista) o **Grafica** (anello proporzionale alla dimensione con legenda interattiva
    per selezionare o navigare).
-9. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
-   allegati "veri" nel database dei messaggi: rimuovere questa cache non cancella email).
-10. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
+9. **Dati di Sistema** — le voci che macOS raggruppa sotto "Dati di Sistema" in
+    Informazioni su questo Mac: snapshot locali APFS di Time Machine (eliminabili subito
+    per liberare spazio), cache anteprime QuickLook, cache CoreSimulator (Xcode), e
+    ricostruzione dell'indice di Spotlight (richiede privilegi di amministratore).
+10. **Salute SSD** — stato dell'unità interna con semaforo verde/giallo/rosso: stato
+    SMART, modello, TRIM, spazio disponibile; temperatura, TBW scritti e ore di
+    accensione se `smartctl` (smartmontools) è installato — dati che l'SSD interno dei
+    Mac Apple Silicon spesso non espone comunque, per via della sua interconnessione
+    proprietaria non standard.
+11. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
+    allegati "veri" nel database dei messaggi: rimuovere questa cache non cancella email).
+12. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
     application support, log, stato salvato, container). Se l'app è di proprietà di root
     (comune per quelle del Mac App Store), ritenta con privilegi di amministratore.
-11. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
+13. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
     permette di disattivarli. Non copre i classici "Elementi di Login" di Impostazioni di
     Sistema, che usano un formato interno non documentato da Apple.
-12. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
+14. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
     Mac App Store (via `mas-cli`, se installato). Per le altre app non esiste un modo
     generico e affidabile per controllare gli aggiornamenti: va fatto dal menu dell'app
     stessa.
-13. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
+15. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
     riavviare), tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti),
     cartelle escluse dalle scansioni e possibilità di nascondere l'icona dal Dock
     (l'app resta accessibile dalla barra dei menù).

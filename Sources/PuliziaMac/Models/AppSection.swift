@@ -8,6 +8,8 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
     case duplicateFinder
     case largeFiles
     case diskExplorer
+    case systemData
+    case diskHealth
     case mailAttachments
     case uninstaller
     case loginItems
@@ -26,6 +28,8 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         case .duplicateFinder: return "sidebar.duplicateFinder"
         case .largeFiles: return "sidebar.largeFiles"
         case .diskExplorer: return "sidebar.diskExplorer"
+        case .systemData: return "sidebar.systemData"
+        case .diskHealth: return "sidebar.diskHealth"
         case .mailAttachments: return "sidebar.mailAttachments"
         case .uninstaller: return "sidebar.uninstaller"
         case .loginItems: return "sidebar.loginItems"
@@ -43,6 +47,8 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         case .duplicateFinder: return "doc.on.doc"
         case .largeFiles: return "doc.badge.plus"
         case .diskExplorer: return "externaldrive"
+        case .systemData: return "internaldrive.fill"
+        case .diskHealth: return "heart.text.square"
         case .mailAttachments: return "paperclip"
         case .uninstaller: return "minus.circle"
         case .loginItems: return "person.badge.clock"
@@ -70,6 +76,8 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         case .duplicateFinder: return ["duplicati", "doppi", "duplicate", "copie", "copies"]
         case .largeFiles: return ["grandi", "pesanti", "large", "big", "file"]
         case .diskExplorer: return ["esplora", "disco", "explorer", "treemap", "mappa", "grafica"]
+        case .systemData: return ["dati di sistema", "system data", "snapshot", "apfs", "spotlight", "quicklook", "coresimulator", "simulatore"]
+        case .diskHealth: return ["salute", "ssd", "health", "smart", "nvme", "temperatura", "tbw", "usura", "batteria disco"]
         case .mailAttachments: return ["mail", "posta", "allegati", "attachments", "email"]
         case .uninstaller: return ["disinstalla", "rimuovi", "uninstall", "remove", "elimina"]
         case .loginItems: return ["avvio", "login", "startup", "agenti", "launchagents"]

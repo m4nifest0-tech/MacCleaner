@@ -19,6 +19,8 @@ enum Localization {
         "sidebar.dashboard": Entry(it: "Panoramica", en: "Overview"),
         "sidebar.smartClean": Entry(it: "Pulizia Automatica", en: "Smart Clean"),
         "sidebar.diskExplorer": Entry(it: "Esplora Disco", en: "Disk Explorer"),
+        "sidebar.systemData": Entry(it: "Dati di Sistema", en: "System Data"),
+        "sidebar.diskHealth": Entry(it: "Salute SSD", en: "SSD Health"),
         "sidebar.mailAttachments": Entry(it: "Allegati Mail", en: "Mail Attachments"),
         "sidebar.cacheCleaner": Entry(it: "Cache e File Temporanei", en: "Cache & Temp Files"),
         "sidebar.archScanner": Entry(it: "App Intel su ARM", en: "Intel Apps on ARM"),
@@ -38,6 +40,7 @@ enum Localization {
         "common.cancel": Entry(it: "Annulla", en: "Cancel"),
         "common.reveal_finder": Entry(it: "Rivela nel Finder", en: "Reveal in Finder"),
         "common.preview": Entry(it: "Anteprima", en: "Preview"),
+        "common.delete": Entry(it: "Elimina", en: "Delete"),
         "common.move_to_trash": Entry(it: "Sposta nel Cestino", en: "Move to Trash"),
         "common.open_system_settings": Entry(it: "Apri Impostazioni di Sistema", en: "Open System Settings"),
 
@@ -204,6 +207,65 @@ enum Localization {
         "diskexplorer.loading": Entry(it: "Analisi della cartella…", en: "Analyzing folder…"),
         "diskexplorer.empty": Entry(it: "Cartella vuota", en: "Empty folder"),
         "diskexplorer.excluded_tooltip": Entry(it: "Cartella esclusa: non selezionabile", en: "Excluded folder: not selectable"),
+
+        // MARK: Dati di sistema
+        "systemdata.explanation": Entry(
+            it: "Voci che macOS raggruppa sotto \"Dati di Sistema\" in Informazioni su questo Mac: snapshot locali, indici e cache che non sono file dell'utente.",
+            en: "Items macOS groups under \"System Data\" in About This Mac: local snapshots, indexes, and caches that aren't user files."
+        ),
+        "systemdata.scan_button": Entry(it: "Analizza", en: "Analyze"),
+        "systemdata.scanning": Entry(it: "Analisi in corso…", en: "Analyzing…"),
+        "systemdata.snapshots_header": Entry(it: "Snapshot locali APFS", en: "Local APFS Snapshots"),
+        "systemdata.snapshots_explanation": Entry(
+            it: "Backup incrementali locali creati automaticamente da Time Machine, anche senza un disco esterno collegato. macOS li elimina da solo quando serve spazio, ma puoi rimuoverli subito per liberarlo immediatamente.",
+            en: "Incremental local backups created automatically by Time Machine, even without an external disk connected. macOS deletes them on its own when space is needed, but you can remove them now to free space immediately."
+        ),
+        "systemdata.snapshots_empty": Entry(it: "Nessuno snapshot locale presente", en: "No local snapshots present"),
+        "systemdata.delete_snapshots": Entry(it: "Elimina snapshot selezionati", en: "Delete selected snapshots"),
+        "systemdata.confirm_delete_snapshots": Entry(it: "Eliminare gli snapshot selezionati?", en: "Delete the selected snapshots?"),
+        "systemdata.delete_snapshots_failed": Entry(it: "Non è stato possibile eliminare alcuni snapshot.", en: "Some snapshots couldn't be deleted."),
+        "systemdata.caches_header": Entry(it: "Cache di sistema", en: "System Caches"),
+        "systemdata.quicklook_cache": Entry(it: "Cache anteprime QuickLook", en: "QuickLook Thumbnail Cache"),
+        "systemdata.coresimulator_cache": Entry(it: "Cache CoreSimulator (Xcode)", en: "CoreSimulator Cache (Xcode)"),
+        "systemdata.cache_not_present": Entry(it: "Non presente", en: "Not present"),
+        "systemdata.spotlight_header": Entry(it: "Indice di Spotlight", en: "Spotlight Index"),
+        "systemdata.spotlight_explanation": Entry(
+            it: "L'indice di ricerca di Spotlight non si elimina come un file: si ricostruisce. La ricostruzione richiede privilegi di amministratore e per un po' la ricerca sarà incompleta mentre l'indice si rigenera.",
+            en: "The Spotlight search index isn't deleted like a file: it's rebuilt. Rebuilding requires administrator privileges, and search will be incomplete for a while as the index regenerates."
+        ),
+        "systemdata.spotlight_rebuild": Entry(it: "Ricostruisci indice", en: "Rebuild Index"),
+        "systemdata.spotlight_unavailable": Entry(it: "Dimensione non disponibile", en: "Size unavailable"),
+        "systemdata.spotlight_rebuild_started": Entry(it: "Ricostruzione dell'indice avviata", en: "Index rebuild started"),
+
+        // MARK: Salute SSD
+        "diskhealth.explanation": Entry(
+            it: "Stato dell'unità interna: alcuni dati (temperatura, TBW, ore di accensione) richiedono smartctl (smartmontools) e potrebbero non essere disponibili sull'SSD interno dei Mac Apple Silicon, che usa un'interconnessione proprietaria non standard.",
+            en: "Internal drive status: some data (temperature, TBW, power-on hours) requires smartctl (smartmontools) and may be unavailable on Apple Silicon Macs' internal SSD, which uses a non-standard proprietary interconnect."
+        ),
+        "diskhealth.refresh": Entry(it: "Aggiorna", en: "Refresh"),
+        "diskhealth.checking": Entry(it: "Lettura dello stato del disco…", en: "Reading disk status…"),
+        "diskhealth.unavailable": Entry(it: "Informazioni sul disco non disponibili", en: "Disk information unavailable"),
+        "diskhealth.status_good": Entry(it: "Ottima", en: "Good"),
+        "diskhealth.status_warning": Entry(it: "Attenzione", en: "Warning"),
+        "diskhealth.status_critical": Entry(it: "Critica", en: "Critical"),
+        "diskhealth.smart_verified": Entry(it: "SMART verificato", en: "SMART verified"),
+        "diskhealth.smart_failing": Entry(it: "SMART in errore", en: "SMART failing"),
+        "diskhealth.smart_not_supported": Entry(it: "SMART non supportato", en: "SMART not supported"),
+        "diskhealth.smart_unknown": Entry(it: "Stato SMART sconosciuto", en: "Unknown SMART status"),
+        "diskhealth.model": Entry(it: "Modello", en: "Model"),
+        "diskhealth.temperature": Entry(it: "Temperatura", en: "Temperature"),
+        "diskhealth.tbw": Entry(it: "Totale scritto (TBW)", en: "Total Written (TBW)"),
+        "diskhealth.power_on_hours": Entry(it: "Ore di accensione", en: "Power-On Hours"),
+        "diskhealth.available_space": Entry(it: "Spazio disponibile", en: "Available Space"),
+        "diskhealth.wear": Entry(it: "Usura stimata", en: "Estimated Wear"),
+        "diskhealth.trim": Entry(it: "TRIM", en: "TRIM"),
+        "diskhealth.trim_enabled": Entry(it: "Attivo", en: "Enabled"),
+        "diskhealth.trim_disabled": Entry(it: "Non attivo", en: "Disabled"),
+        "diskhealth.not_available_metric": Entry(it: "Non disponibile", en: "Not available"),
+        "diskhealth.extra_data_hint": Entry(
+            it: "Installa smartmontools (`brew install smartmontools`) per provare a leggere temperatura, TBW e ore di accensione — non garantito sull'SSD interno.",
+            en: "Install smartmontools (`brew install smartmontools`) to try reading temperature, TBW, and power-on hours — not guaranteed on the internal SSD."
+        ),
 
         // MARK: File di grandi dimensioni
         "largefiles.threshold_header": Entry(it: "Dimensione minima", en: "Minimum size"),
