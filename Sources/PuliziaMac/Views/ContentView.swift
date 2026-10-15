@@ -32,6 +32,10 @@ struct ContentView: View {
                 SystemDataView()
             case .diskHealth:
                 DiskHealthView()
+            case .memoryCleaner:
+                MemoryView()
+            case .browserCleaner:
+                BrowserCleanerView()
             case .mailAttachments:
                 MailAttachmentsView()
             case .uninstaller:

@@ -54,19 +54,26 @@ poi confermare nella finestra che compare.
     accensione se `smartctl` (smartmontools) è installato — dati che l'SSD interno dei
     Mac Apple Silicon spesso non espone comunque, per via della sua interconnessione
     proprietaria non standard.
-11. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
+11. **Memoria** — panoramica della RAM (wired/attiva/compressa/inattiva/libera) con
+    anello di utilizzo, e un'azione "Libera memoria inattiva" (`purge`, richiede
+    privilegi di amministratore; l'effetto varia in base a cosa è davvero riutilizzabile
+    in quel momento).
+12. **Browser** — cache di Safari, Chrome, Brave, Firefox ed Edge (solo le cartelle
+    `~/Library/Caches/...` che il browser stesso può ricreare: mai cronologia, cookie,
+    password o preferiti).
+13. **Allegati Mail** — cache degli allegati scaricati/aperti tramite Mail.app (non gli
     allegati "veri" nel database dei messaggi: rimuovere questa cache non cancella email).
-12. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
+14. **Disinstallatore** — rimuove un'app e i suoi file residui noti (preferenze, cache,
     application support, log, stato salvato, container). Se l'app è di proprietà di root
     (comune per quelle del Mac App Store), ritenta con privilegi di amministratore.
-13. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
+15. **Elementi di avvio** — elenca gli agenti di avvio (LaunchAgents utente e sistema) e
     permette di disattivarli. Non copre i classici "Elementi di Login" di Impostazioni di
     Sistema, che usano un formato interno non documentato da Apple.
-14. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
+16. **Aggiornamenti** — controlla e applica aggiornamenti per pacchetti Homebrew e app
     Mac App Store (via `mas-cli`, se installato). Per le altre app non esiste un modo
     generico e affidabile per controllare gli aggiornamenti: va fatto dal menu dell'app
     stessa.
-15. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
+17. **Impostazioni** — lingua (Italiano/English, cambia subito tutta l'interfaccia senza
     riavviare), tema (Sistema/Chiaro/Scuro + colore d'accento a scelta tra 8 varianti),
     cartelle escluse dalle scansioni e possibilità di nascondere l'icona dal Dock
     (l'app resta accessibile dalla barra dei menù).

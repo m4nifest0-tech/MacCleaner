@@ -21,6 +21,8 @@ enum Localization {
         "sidebar.diskExplorer": Entry(it: "Esplora Disco", en: "Disk Explorer"),
         "sidebar.systemData": Entry(it: "Dati di Sistema", en: "System Data"),
         "sidebar.diskHealth": Entry(it: "Salute SSD", en: "SSD Health"),
+        "sidebar.memoryCleaner": Entry(it: "Memoria", en: "Memory"),
+        "sidebar.browserCleaner": Entry(it: "Browser", en: "Browsers"),
         "sidebar.mailAttachments": Entry(it: "Allegati Mail", en: "Mail Attachments"),
         "sidebar.cacheCleaner": Entry(it: "Cache e File Temporanei", en: "Cache & Temp Files"),
         "sidebar.archScanner": Entry(it: "App Intel su ARM", en: "Intel Apps on ARM"),
@@ -266,6 +268,30 @@ enum Localization {
             it: "Installa smartmontools (`brew install smartmontools`) per provare a leggere temperatura, TBW e ore di accensione — non garantito sull'SSD interno.",
             en: "Install smartmontools (`brew install smartmontools`) to try reading temperature, TBW, and power-on hours — not guaranteed on the internal SSD."
         ),
+
+        // MARK: Memoria
+        "memory.explanation": Entry(
+            it: "Panoramica della memoria RAM. \"Libera memoria\" chiede al sistema di svuotare la cache su disco riutilizzabile: l'effetto varia in base a cosa è davvero inattivo in quel momento.",
+            en: "RAM overview. \"Free Memory\" asks the system to empty reusable disk cache: the effect depends on what's actually inactive at that moment."
+        ),
+        "memory.refresh": Entry(it: "Aggiorna", en: "Refresh"),
+        "memory.loading": Entry(it: "Lettura della memoria…", en: "Reading memory…"),
+        "memory.unavailable": Entry(it: "Informazioni sulla memoria non disponibili", en: "Memory information unavailable"),
+        "memory.used": Entry(it: "Usata", en: "Used"),
+        "memory.wired": Entry(it: "Wired (sistema)", en: "Wired (system)"),
+        "memory.active": Entry(it: "Attiva", en: "Active"),
+        "memory.inactive": Entry(it: "Inattiva (riutilizzabile)", en: "Inactive (reusable)"),
+        "memory.compressed": Entry(it: "Compressa", en: "Compressed"),
+        "memory.free": Entry(it: "Libera", en: "Free"),
+        "memory.purge_button": Entry(it: "Libera memoria inattiva", en: "Free Inactive Memory"),
+        "memory.purge_success": Entry(it: "Memoria liberata", en: "Memory freed"),
+
+        // MARK: Browser
+        "browser.explanation": Entry(
+            it: "Cache dei browser installati (non cronologia, cookie, password o preferiti: solo le cartelle che il browser stesso può ricreare).",
+            en: "Cache of the installed browsers (not history, cookies, passwords, or bookmarks: only the folders the browser itself can recreate)."
+        ),
+        "browser.empty": Entry(it: "Nessun browser con cache trovato", en: "No browser cache found"),
 
         // MARK: File di grandi dimensioni
         "largefiles.threshold_header": Entry(it: "Dimensione minima", en: "Minimum size"),
