@@ -3,6 +3,12 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui. Il formato
 segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 
+## [1.6.0] - 2026-10-15
+
+### Aggiunte
+- **Memoria** — nuova sezione: panoramica della RAM (wired/attiva/compressa/inattiva/libera) e azione "Libera memoria inattiva" (`purge`, con privilegi di amministratore).
+- **Browser** — nuova sezione: cache di Safari, Chrome, Brave, Firefox ed Edge (solo le cartelle ricreabili dal browser stesso, mai cronologia/cookie/password/preferiti).
+
 ## [1.5.0] - 2026-09-09
 
 ### Aggiunte
@@ -80,6 +86,7 @@ segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).
 - **Impostazioni** — lingua (Italiano/English) e tema (Sistema/Chiaro/Scuro + colore d'accento).
 - Nessuna cancellazione permanente automatica: ogni pulizia sposta gli elementi nel Cestino.
 
+[1.6.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.6.0
 [1.5.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.5.0
 [1.4.0]: https://github.com/m4nifest0-tech/MacCleaner/releases/tag/v1.4.0
 [1.3.0]: https://github.com/m4nifest0-tech/PuliziaMac/releases/tag/v1.3.0
